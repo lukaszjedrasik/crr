@@ -1,4 +1,4 @@
-# vue-geo
+# vue-crr
 
 ## Project setup
 ```
