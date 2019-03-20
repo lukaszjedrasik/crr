@@ -1,28 +1,27 @@
 <template>
   <v-app dark>
-    <v-content>
-      <v-container fluid fill-height>
-        <v-layout align-center justify-center>
-          <v-flex xs12 sm8 md4>
-            <v-tabs centered dark slider-color="#C62828">
-              <v-tab @click="componentName = 'LoginView'" ripple>Zaloguj</v-tab>
-              <v-spacer></v-spacer>
-              <v-avatar size="43" class="pt-1">
-                <img :src="crLogo" alt="Cross Fight Radom logo">
-              </v-avatar>
-              <v-spacer></v-spacer>
-              <v-tab @click="componentName = 'RegisterView'" ripple>Zarejestruj</v-tab>
-            </v-tabs>
+    <v-container fluid column>
+      <v-layout justify-center>
+        <v-avatar size="180" class="mb-5">
+          <img :src="crLogo" alt="Cross Fight Radom logo">
+        </v-avatar>
+      </v-layout>
+      <v-layout justify-center>
+        <v-flex xs12 sm8 md4 align-self-center>
+          <v-tabs centered dark slider-color="#C62828">
+            <v-tab @click="componentName = 'LoginView'" ripple>Zaloguj</v-tab>
+            <v-spacer></v-spacer>
+            <v-tab @click="componentName = 'RegisterView'" ripple>Zarejestruj</v-tab>
+          </v-tabs>
 
-            <transition mode="out-in" enter-active-class="animated flipInY faster">
-              <keep-alive>
-                <component :is="componentName"></component>
-              </keep-alive>
-            </transition>
-          </v-flex>
-        </v-layout>
-      </v-container>
-    </v-content>
+          <transition mode="out-in" enter-active-class="animated flipInY faster">
+            <keep-alive>
+              <component :is="componentName"></component>
+            </keep-alive>
+          </transition>
+        </v-flex>
+      </v-layout>
+    </v-container>
   </v-app>
 </template>
 
@@ -43,5 +42,5 @@ export default {
 };
 </script>
 
-<style scoped>
+<style scoped lang='scss'>
 </style>
