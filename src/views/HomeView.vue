@@ -9,9 +9,9 @@
       <v-layout justify-center>
         <v-flex xs12 sm8 md4 align-self-center>
           <v-tabs centered dark slider-color="#C62828">
-            <v-tab @click="componentName = 'LoginView'" ripple>Zaloguj</v-tab>
+            <v-tab @click="componentName = 'Login'" ripple>Zaloguj</v-tab>
             <v-spacer></v-spacer>
-            <v-tab @click="componentName = 'RegisterView'" ripple>Zarejestruj</v-tab>
+            <v-tab @click="componentName = 'Register'" ripple>Zarejestruj</v-tab>
           </v-tabs>
 
           <transition mode="out-in" enter-active-class="animated flipInY faster">
@@ -27,15 +27,15 @@
 
 <script>
 import crLogo from "@/assets/crLogo.jpeg";
-import LoginView from "@/views/Login&Register View/LoginView";
-import RegisterView from "@/views/Login&Register View/RegisterView";
+import Login from "@/components/Login";
+import Register from "@/components/Register";
 
 export default {
   name: "HomeView",
-  components: { LoginView, RegisterView },
+  components: { Login, Register },
   data() {
     return {
-      componentName: "LoginView",
+      componentName: "Login",
       crLogo
     };
   }
