@@ -1,9 +1,7 @@
 <template>
   <v-container>
     <NavView class="mb-5"></NavView>
-    <v-layout>
-      <v-flex></v-flex>
-    </v-layout>
+    <router-view></router-view>
   </v-container>
 </template>
 
@@ -11,7 +9,7 @@
 import NavView from "@/views/NavView";
 
 export default {
-  name: "DashboardView",
+  name: "Dashboard",
   components: { NavView }
 };
 </script>

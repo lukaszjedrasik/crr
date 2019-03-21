@@ -2,17 +2,19 @@
   <div>
     <v-toolbar app clipped-left fixed>
       <v-toolbar-side-icon @click.stop="sideMenu = !sideMenu"></v-toolbar-side-icon>
-      <v-list-tile-avatar>
+      <v-list-tile-avatar size="45">
         <img :src="crLogo" alt="Cross Fight Radom logo">
       </v-list-tile-avatar>
-      <v-toolbar-title class="font-weight-light font-italic">Cross Fight Radom</v-toolbar-title>
+      <v-toolbar-title class="font-weight-light font-italic">
+        <router-link to="/profile" tag="li">Cross Fight Radom</router-link>
+      </v-toolbar-title>
       <v-spacer></v-spacer>
       <v-toolbar-items class="hidden-xs-only">
-        <v-btn flat small>
-          <v-icon small left>person_add</v-icon>Zaloguj
+        <v-btn to="/profile" flat small active-class="active">
+          <v-icon left>person</v-icon>Profil
         </v-btn>
-        <v-btn flat small>Zarejestruj
-          <v-icon small right>person_add</v-icon>
+        <v-btn flat small>Wyloguj
+          <v-icon right>exit_to_app</v-icon>
         </v-btn>
       </v-toolbar-items>
     </v-toolbar>
@@ -20,13 +22,17 @@
     <v-navigation-drawer v-model="sideMenu" app dark>
       <v-list>
         <v-list-tile class="mb-2 font-weight-light font-italic">
-          <v-list-tile-avatar>
-            <img :src="crLogo" alt="Cross Fight Radom logo">
+          <v-list-tile-avatar size="55" class="mr-4">
+            <img :src="crLogo" alt="Cross Fight Radom logo" to="/profile">
           </v-list-tile-avatar>Cross Fight Radom
         </v-list-tile>
         <v-divider class="mb-3"></v-divider>
 
-        <v-list-tile @click.prevent v-for="item in sideMenuLinks" :key="item.name">
+        <v-list-tile
+          @click.prevent="chooseBookmarks(index)"
+          v-for="(item,index) in sideMenuLinks"
+          :key="item.name"
+        >
           <v-list-tile-action>
             <v-icon>{{ item.icon }}</v-icon>
           </v-list-tile-action>
@@ -48,14 +54,36 @@ export default {
     return {
       sideMenu: null,
       sideMenuLinks: [
+        { name: "Aktualności", icon: "fiber_new" },
         { name: "Rozkład zajęć", icon: "calendar_today" },
-        { name: "Czat", icon: "chat" }
+        { name: "Czat", icon: "chat" },
+        { name: "Karnet", icon: "credit_card" },
+        { name: "Profil", icon: "person" }
       ],
       crLogo
     };
+  },
+  methods: {
+    chooseBookmarks(index) {
+      const link = this.sideMenuLinks[index].name;
+      switch (link) {
+        case "Rozkład zajęć":
+          this.$router.push("/shedule");
+          break;
+        case "Profil":
+          this.$router.push("/profile");
+          break;
+        default:
+          break;
+      }
+    }
   }
 };
 </script>
 
 <style scoped lang='scss'>
+li {
+  list-style-type: none;
+  cursor: pointer;
+}
 </style>

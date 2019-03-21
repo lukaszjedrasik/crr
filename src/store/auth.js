@@ -1,4 +1,5 @@
-import Vue from 'vue';
+/* eslint-disable no-console */
+/* eslint-disable no-param-reassign */
 import authAxios from '@/auth-axios';
 
 export default {
@@ -12,6 +13,9 @@ export default {
       state.token = payload.token;
       state.userID = payload.userID;
     },
+  },
+  getters: {
+    isAuth: state => state.token !== null,
   },
   actions: {
     async login({ commit }, payload) {

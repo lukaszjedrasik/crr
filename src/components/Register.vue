@@ -3,17 +3,17 @@
     <v-card-text>
       <v-form ref="form">
         <v-text-field
-          v-model.trim="userData.name"
-          :error-messages="RegisterNameErrors"
+          v-model.trim="username"
+          :error-messages="usernameErrors"
           @keyup.enter="submit"
-          prepend-icon="person"
-          name="login"
+          prepend-icon="person_outline"
+          name="username"
           label="Nazwa użytkownika"
           type="text"
         ></v-text-field>
         <v-text-field
-          v-model.trim="userData.email"
-          :error-messages="RegisterEmailErrors"
+          v-model.trim="email"
+          :error-messages="emailErrors"
           @keyup.enter="submit"
           prepend-icon="mail"
           name="email"
@@ -21,8 +21,8 @@
           type="email"
         ></v-text-field>
         <v-text-field
-          v-model.trim="userData.password"
-          :error-messages="RegisterPasswordErrors"
+          v-model.trim="password"
+          :error-messages="passwordErrors"
           @keyup.enter="submit"
           prepend-icon="lock"
           name="password"
@@ -41,37 +41,32 @@
 <script>
 import { required, minLength, email } from "vuelidate/lib/validators";
 import {
-  RegisterNameErrors,
-  RegisterEmailErrors,
-  RegisterPasswordErrors
+  usernameErrors,
+  emailErrors,
+  passwordErrors
 } from "@/validations/rules.js";
-import authAxios from "@/auth-axios.js";
 
 export default {
   name: "Register",
   data() {
     return {
-      userData: {
-        name: "",
-        email: "",
-        password: ""
-      }
+      username: "",
+      email: "",
+      password: ""
     };
   },
   validations: {
-    userData: {
-      name: {
-        required,
-        minLength: minLength(3)
-      },
-      email: {
-        required,
-        email
-      },
-      password: {
-        required,
-        minLength: minLength(6)
-      }
+    username: {
+      required,
+      minLength: minLength(3)
+    },
+    email: {
+      required,
+      email
+    },
+    password: {
+      required,
+      minLength: minLength(6)
     }
   },
   methods: {
@@ -79,22 +74,21 @@ export default {
       this.$v.$touch();
       if (!this.$v.$invalid) {
         await this.$store.dispatch("auth/register", {
-          name: this.userData.name,
-          email: this.userData.email,
-          password: this.userData.password,
+          email: this.email,
+          password: this.password,
           returnSecureToken: true
         });
+        this.$v.$reset();
+        this.username = "";
+        this.email = "";
+        this.password = "";
       }
-      this.$v.$reset();
-      this.userData.name = "";
-      this.userData.email = "";
-      this.userData.password = "";
     }
   },
   computed: {
-    RegisterNameErrors,
-    RegisterEmailErrors,
-    RegisterPasswordErrors
+    emailErrors,
+    passwordErrors,
+    usernameErrors
   }
 };
 </script>

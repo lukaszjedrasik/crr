@@ -1,19 +1,10 @@
 <template>
   <v-card class="elevation-12" dark>
     <v-card-text>
-      <v-form>
+      <v-form ref="form">
         <v-text-field
-          v-model.trim="userData.name"
-          :error-messages="LoginNameErrors"
-          @keyup.enter="submit"
-          prepend-icon="person"
-          name="login"
-          label="Login"
-          type="text"
-        ></v-text-field>
-        <v-text-field
-          v-model.trim="userData.email"
-          :error-messages="LoginEmailErrors"
+          v-model.trim="email"
+          :error-messages="emailErrors"
           @keyup.enter="submit"
           prepend-icon="mail"
           name="email"
@@ -21,8 +12,8 @@
           type="email"
         ></v-text-field>
         <v-text-field
-          v-model.trim="userData.password"
-          :error-messages="LoginPasswordErrors"
+          v-model.trim="password"
+          :error-messages="passwordErrors"
           @keyup.enter="submit"
           prepend-icon="lock"
           name="password"
@@ -31,6 +22,9 @@
         ></v-text-field>
       </v-form>
     </v-card-text>
+    <p
+      class="text-xs-center red--text text--accent-2 subheading"
+    >Musisz się zalogować, aby przejść dalej.</p>
     <v-card-actions>
       <v-spacer></v-spacer>
       <v-btn @click="submit" :disabled="this.$v.$invalid" color="#C62828">Zaloguj</v-btn>
@@ -40,36 +34,24 @@
 
 <script>
 import { required, minLength, email } from "vuelidate/lib/validators";
-import {
-  LoginNameErrors,
-  LoginEmailErrors,
-  LoginPasswordErrors
-} from "@/validations/rules.js";
-import authAxios from "@/auth-axios.js";
+import { emailErrors, passwordErrors } from "@/validations/rules.js";
 
 export default {
   name: "Login",
   data() {
     return {
-      userData: {
-        name: "",
-        email: "",
-        password: ""
-      }
+      email: "",
+      password: ""
     };
   },
   validations: {
-    userData: {
-      name: {
-        required
-      },
-      email: {
-        required,
-        email
-      },
-      password: {
-        required
-      }
+    email: {
+      required,
+      email
+    },
+    password: {
+      required,
+      minLength: minLength(6)
     }
   },
   methods: {
@@ -77,23 +59,20 @@ export default {
       this.$v.$touch();
       if (!this.$v.$invalid) {
         await this.$store.dispatch("auth/login", {
-          name: this.userData.name,
-          email: this.userData.email,
-          password: this.userData.password,
-          returnSecureToken: true,
-          isAdmin: this.isAdmin
+          email: this.email,
+          password: this.password,
+          returnSecureToken: true
         });
+        this.$v.$reset();
+        this.email = "";
+        this.password = "";
+        this.$router.push("/profile");
       }
-      this.$v.$reset();
-      this.userData.name = "";
-      this.userData.email = "";
-      this.userData.password = "";
     }
   },
   computed: {
-    LoginNameErrors,
-    LoginEmailErrors,
-    LoginPasswordErrors
+    emailErrors,
+    passwordErrors
   }
 };
 </script>
