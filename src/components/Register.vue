@@ -8,7 +8,7 @@
           @keyup.enter="submit"
           prepend-icon="person_outline"
           name="username"
-          label="Nazwa użytkownika"
+          label="Imię i Nazwisko"
           type="text"
         ></v-text-field>
         <v-text-field
@@ -33,7 +33,7 @@
     </v-card-text>
     <v-card-actions>
       <v-spacer></v-spacer>
-      <v-btn @click="submit" :disabled="this.$v.$invalid" color="#C62828">Zarejestruj</v-btn>
+      <v-btn @click="submit" color="#C62828">Zarejestruj</v-btn>
     </v-card-actions>
   </v-card>
 </template>

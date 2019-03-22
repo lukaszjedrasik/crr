@@ -36,6 +36,11 @@ export default new Router({
           name: 'Profile',
           component: () => import('@/components/Profile.vue'),
         },
+        {
+          path: '/pass',
+          name: 'Pass',
+          component: () => import('@/components/Pass.vue'),
+        },
       ],
     },
   ],

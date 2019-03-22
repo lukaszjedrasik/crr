@@ -19,7 +19,7 @@
       </v-toolbar-items>
     </v-toolbar>
 
-    <v-navigation-drawer v-model="sideMenu" app dark>
+    <v-navigation-drawer v-model="sideMenu" app dark absolute temporary>
       <v-list>
         <v-list-tile class="mb-2 font-weight-light font-italic">
           <v-list-tile-avatar size="55" class="mr-4">
@@ -73,6 +73,8 @@ export default {
         case "Profil":
           this.$router.push("/profile");
           break;
+        case "Karnet":
+          this.$router.push("/pass");
         default:
           break;
       }

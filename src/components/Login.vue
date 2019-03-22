@@ -27,7 +27,7 @@
     >Musisz się zalogować, aby przejść dalej.</p>
     <v-card-actions>
       <v-spacer></v-spacer>
-      <v-btn @click="submit" :disabled="this.$v.$invalid" color="#C62828">Zaloguj</v-btn>
+      <v-btn @click="submit" color="#C62828">Zaloguj</v-btn>
     </v-card-actions>
   </v-card>
 </template>
