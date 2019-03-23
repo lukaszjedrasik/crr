@@ -1,6 +1,6 @@
 .DS_Store
 node_modules
-crr-api
+# crr-api
 
 # local env files
 .env.local
