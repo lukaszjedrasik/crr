@@ -13,7 +13,8 @@
         <v-btn to="/profile" flat small active-class="active">
           <v-icon left>person</v-icon>Profil
         </v-btn>
-        <v-btn flat small>Wyloguj
+        <v-btn @click="logout" flat small>
+          Wyloguj
           <v-icon right>exit_to_app</v-icon>
         </v-btn>
       </v-toolbar-items>
@@ -78,6 +79,9 @@ export default {
         default:
           break;
       }
+    },
+    logout() {
+      this.$store.dispatch("auth/logout");
     }
   }
 };

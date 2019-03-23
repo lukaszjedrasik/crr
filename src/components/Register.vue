@@ -74,6 +74,7 @@ export default {
       this.$v.$touch();
       if (!this.$v.$invalid) {
         await this.$store.dispatch("auth/register", {
+          name: this.username,
           email: this.email,
           password: this.password,
           returnSecureToken: true

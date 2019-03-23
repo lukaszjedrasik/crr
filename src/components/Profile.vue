@@ -8,7 +8,7 @@
               <v-spacer></v-spacer>
 
               <v-card-title class="white--text pl-5">
-                <div class="display-2 pl-1">{{userInfo.name}}</div>
+                <div class="display-2 pl-1">{{userInfo}}</div>
               </v-card-title>
             </v-layout>
           </v-img>
@@ -60,13 +60,13 @@ export default {
   },
   computed: {
     userInfo() {
-      return this.$store.state.users.users[0];
+      return this.$store.state.auth.name;
     },
     ticket() {
-      return this.$store.state.users.users[0].ticket;
+      // return this.$store.state.users.users[0].ticket;
     },
     disableBuy() {
-      return this.$store.state.users.users[0].ticket < moment().format("L");
+      // return this.$store.state.users.users[0].ticket < moment().format("L");
     }
   }
 };
