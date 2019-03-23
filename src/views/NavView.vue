@@ -22,10 +22,15 @@
 
     <v-navigation-drawer v-model="sideMenu" app dark absolute temporary>
       <v-list>
-        <v-list-tile class="mb-2 font-weight-light font-italic">
+        <v-list-tile class="mb-2 font-weight-light">
           <v-list-tile-avatar size="55" class="mr-4">
             <img :src="crLogo" alt="Cross Fight Radom logo" to="/profile">
           </v-list-tile-avatar>Cross Fight Radom
+          <v-list-action>
+            <v-btn @click="logout" color="error" small flat>
+              <v-icon>exit_to_app</v-icon>
+            </v-btn>
+          </v-list-action>
         </v-list-tile>
         <v-divider class="mb-3"></v-divider>
 
