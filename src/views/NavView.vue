@@ -26,11 +26,9 @@
           <v-list-tile-avatar size="55" class="mr-4">
             <img :src="crLogo" alt="Cross Fight Radom logo" to="/profile">
           </v-list-tile-avatar>Cross Fight Radom
-          <v-list-action>
-            <v-btn @click="logout" color="error" small flat>
-              <v-icon>exit_to_app</v-icon>
-            </v-btn>
-          </v-list-action>
+          <v-btn @click="logout" color="error" small flat>
+            <v-icon>exit_to_app</v-icon>
+          </v-btn>
         </v-list-tile>
         <v-divider class="mb-3"></v-divider>
 
@@ -74,13 +72,17 @@ export default {
       const link = this.sideMenuLinks[index].name;
       switch (link) {
         case "Rozkład zajęć":
-          this.$router.push("/shedule");
+          this.$router.push("/schedule");
+          break;
+        case "Czat":
+          this.$router.push("/chat");
+          break;
+        case "Karnet":
+          this.$router.push("/pass");
           break;
         case "Profil":
           this.$router.push("/profile");
           break;
-        case "Karnet":
-          this.$router.push("/pass");
         default:
           break;
       }

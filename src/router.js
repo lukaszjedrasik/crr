@@ -1,7 +1,18 @@
 import Vue from 'vue';
 import Router from 'vue-router';
-import store from './store';
+import store from '@/store';
 import StartView from '@/views/StartView.vue';
+
+store.dispatch('auth/autologin');
+
+const authGuard = (to, from, next) => {
+  const st = store.getters['auth/isAuth'];
+  if (st) {
+    next();
+  } else {
+    next('/');
+  }
+};
 
 Vue.use(Router);
 
@@ -18,18 +29,12 @@ export default new Router({
       path: '/dashboard',
       name: 'Dashboard',
       component: () => import('@/components/Dashboard.vue'),
-      beforeEnter(to, from, next) {
-        if (store.getters['auth/isAuth']) {
-          next();
-        } else {
-          next({ name: 'StartView' });
-        }
-      },
+      beforeEnter: authGuard,
       children: [
         {
-          path: '/shedule',
-          name: 'Shedule',
-          component: () => import('@/components/Shedule.vue'),
+          path: '/schedule',
+          name: 'Schedule',
+          component: () => import('@/components/Schedule.vue'),
         },
         {
           path: '/profile',
@@ -40,6 +45,11 @@ export default new Router({
           path: '/pass',
           name: 'Pass',
           component: () => import('@/components/Pass.vue'),
+        },
+        {
+          path: '/chat',
+          name: 'Chat',
+          component: () => import('@/components/Chat.vue'),
         },
       ],
     },

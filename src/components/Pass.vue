@@ -20,13 +20,13 @@
 
               <v-list-tile-content>
                 <v-list-tile-title>Karnet wazny do:</v-list-tile-title>
-                <v-list-tile-sub-title>{{ ticket }}</v-list-tile-sub-title>
+                <v-list-tile-sub-title>{{ this.$store.state.pass.ticketExpires }}</v-list-tile-sub-title>
               </v-list-tile-content>
             </v-list-tile>
 
             <v-divider inset></v-divider>
             <v-layout justify-end>
-              <v-btn @click="buyTicket" color="error" class="ma-3" :disabled="disableBuy">Kup Karnet</v-btn>
+              <v-btn @click="buyTicket" color="error" :disabled="disableBuy" class="ma-3">Kup Karnet</v-btn>
             </v-layout>
           </v-list>
         </v-card>
@@ -39,6 +39,7 @@
 import pass from "@/assets/pass.jpg";
 import moment from "moment";
 import "moment/locale/pl";
+import authAxios from "@/auth-axios";
 
 export default {
   name: "Pass",
@@ -48,16 +49,13 @@ export default {
     };
   },
   methods: {
-    buyTicket() {
-      this.$store.commit("users/BUY_TICKET");
+    async buyTicket() {
+      this.$store.dispatch("pass/buyTicket");
     }
   },
   computed: {
-    ticket() {
-      return this.$store.state.users.users[0].ticket;
-    },
     disableBuy() {
-      return this.$store.state.users.users[0].ticket < moment().format("L");
+      return this.$store.state.pass.ticketExpires < moment().format("L");
     }
   }
 };

@@ -22,9 +22,7 @@
         ></v-text-field>
       </v-form>
     </v-card-text>
-    <p
-      class="text-xs-center red--text text--accent-2 subheading"
-    >Musisz się zalogować, aby przejść dalej.</p>
+    <p class="text-xs-center red--text text--accent-2 subheading">{{ feedback }}</p>
     <v-card-actions>
       <v-spacer></v-spacer>
       <v-btn @click="submit" color="#C62828">Zaloguj</v-btn>
@@ -35,13 +33,15 @@
 <script>
 import { required, minLength, email } from "vuelidate/lib/validators";
 import { emailErrors, passwordErrors } from "@/validations/rules.js";
+import store from "@/store";
 
 export default {
   name: "Login",
   data() {
     return {
       email: "",
-      password: ""
+      password: "",
+      feedback: "Musisz się zalogować, aby przejść dalej."
     };
   },
   validations: {
@@ -66,7 +66,12 @@ export default {
         this.$v.$reset();
         this.email = "";
         this.password = "";
-        this.$router.push("/profile");
+
+        if (this.$store.getters["auth/isAuth"]) {
+          this.$router.push("/profile");
+        } else {
+          this.feedback = "Niepoprawne dane";
+        }
       }
     }
   },

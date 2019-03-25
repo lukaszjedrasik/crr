@@ -8,7 +8,7 @@
           @keyup.enter="submit"
           prepend-icon="person_outline"
           name="username"
-          label="Imię i Nazwisko"
+          label="Nazwa użytkownika"
           type="text"
         ></v-text-field>
         <v-text-field
@@ -79,6 +79,7 @@ export default {
           password: this.password,
           returnSecureToken: true
         });
+        this.$router.push("/profile");
         this.$v.$reset();
         this.username = "";
         this.email = "";
