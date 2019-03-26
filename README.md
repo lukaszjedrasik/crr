@@ -7,6 +7,3 @@
 - VueX
 - Axios
 - Vuetify
-
-# Demo: 
-https://cross-fight-radom.netlify.com/
