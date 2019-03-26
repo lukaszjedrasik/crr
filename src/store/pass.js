@@ -13,6 +13,7 @@ export default {
   mutations: {
     SET_PASS(state, payload) {
       state.ticketExpires = payload.ticketExpires;
+      state.dialog = !payload.dialog;
     },
   },
   actions: {

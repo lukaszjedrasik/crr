@@ -26,7 +26,19 @@
 
             <v-divider inset></v-divider>
             <v-layout justify-end>
-              <v-btn @click="buyTicket" color="error" :disabled="disableBuy" class="ma-3">Kup Karnet</v-btn>
+              <v-dialog v-model="dialog" persistent max-width="290">
+                <template v-slot:activator="{ on }">
+                  <v-btn v-if="!disableBuy" color="error" class="ma-3" v-on="on">Kup Karnet</v-btn>
+                </template>
+                <v-card class="pa-3">
+                  <v-card-title class="headline text-xs-center">Cross Fight Radom Karnet</v-card-title>
+                  <v-card-actions>
+                    <v-spacer></v-spacer>
+                    <v-btn color @click="dialog = false">Anuluj</v-btn>
+                    <v-btn color="error" @click="buyTicket">Kup/Przedłuż</v-btn>
+                  </v-card-actions>
+                </v-card>
+              </v-dialog>
             </v-layout>
           </v-list>
         </v-card>
@@ -37,25 +49,21 @@
 
 <script>
 import pass from "@/assets/pass.jpg";
-import moment from "moment";
-import "moment/locale/pl";
-import authAxios from "@/auth-axios";
+import buttonDisabled from "@/mixins/button_disabled";
 
 export default {
   name: "Pass",
+  mixins: [buttonDisabled],
   data() {
     return {
-      pass
+      pass,
+      dialog: false
     };
   },
   methods: {
     async buyTicket() {
       this.$store.dispatch("pass/buyTicket");
-    }
-  },
-  computed: {
-    disableBuy() {
-      return this.$store.state.pass.ticketExpires < moment().format("L");
+      this.dialog = false;
     }
   }
 };

@@ -48,20 +48,15 @@
 
 <script>
 import profileCard from "@/assets/profile_card.jpg";
-import moment from "moment";
-import "moment/locale/pl";
+import buttonDisabled from "@/mixins/button_disabled";
 
 export default {
   name: "Profile",
+  mixins: [buttonDisabled],
   data() {
     return {
       profileCard
     };
-  },
-  computed: {
-    disableBuy() {
-      return this.$store.state.pass.ticketExpires < moment().format("L");
-    }
   }
 };
 </script>
