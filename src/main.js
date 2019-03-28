@@ -15,6 +15,8 @@ Vue.use(VueAxios, axios);
 Vue.use(Vuelidate);
 Vue.use(VueChatScroll);
 
+store.dispatch('auth/autologin');
+
 new Vue({
   router,
   store,

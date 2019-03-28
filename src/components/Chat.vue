@@ -41,7 +41,6 @@
               v-if="feedback"
               class="red--text text--accent-3 font-weight-light subheading"
             >Wiadomość nie może być pusta</p>
-            <!-- <p class="green--text text--accent-4 font-weight-light subheading"></p> -->
           </v-layout>
         </v-card>
       </v-flex>
@@ -50,7 +49,6 @@
 </template>
 
 <script>
-import moment from "moment";
 import authAxios from "@/auth-axios";
 
 export default {
@@ -64,7 +62,6 @@ export default {
       feedback: false
     };
   },
-  created() {},
   methods: {
     send() {
       this.ws.send(
@@ -75,42 +72,40 @@ export default {
       this.message = "";
     }
   },
-  created: function() {
+  created: async function() {
     // Get history
-    fetch("http://localhost:8000/api/chat/history", {
-      headers: {
-        Authorization: "Basic " + this.token
-      }
-    })
-      .then(response => response.json())
-      .then(response => {
-        var self = this;
-        response.messages.forEach(function(el) {
-          // Timestamp to hours:minutes
-          var tmp = new Date(el.createdAt);
-          el.createdAt =
-            tmp.getHours() +
-            ":" +
-            (tmp.getMinutes() < 10 ? "0" + tmp.getMinutes() : tmp.getMinutes());
+    try {
+      const { data } = await authAxios("/chat/history", {
+        headers: {
+          Authorization: `Basic ${this.token}`
+        }
+      });
+      const self = this;
+      data.messages.forEach(el => {
+        const tmp = new Date(el.createdAt);
+        el.createdAt =
+          tmp.getHours() +
+          ":" +
+          (tmp.getMinutes() < 10 ? "0" + tmp.getMinutes() : tmp.getMinutes());
 
-          self.messages.push(el);
-        });
+        self.messages.push(el);
       });
 
-    // Connect with Chat
-    this.ws = new WebSocket(
-      "ws://localhost:8000/api/chat/live?token=" + this.token
-    );
-    this.ws.addEventListener("message", ({ data }) => {
-      const message = JSON.parse(data);
-      // Timestamp to hours:minutes
-      var tmp = new Date(message.createdAt);
-      message.createdAt =
-        tmp.getHours() +
-        ":" +
-        (tmp.getMinutes() < 10 ? "0" + tmp.getMinutes() : tmp.getMinutes());
-      this.messages.push(message);
-    });
+      // Connect with Chat
+      this.ws = new WebSocket(
+        "ws://localhost:8000/api/chat/live?token=" + this.token
+      );
+      this.ws.addEventListener("message", ({ data }) => {
+        const message = JSON.parse(data);
+        // Timestamp to hours:minutes
+        var tmp = new Date(message.createdAt);
+        message.createdAt =
+          tmp.getHours() +
+          ":" +
+          (tmp.getMinutes() < 10 ? "0" + tmp.getMinutes() : tmp.getMinutes());
+        this.messages.push(message);
+      });
+    } catch (error) {}
   }
 };
 </script>

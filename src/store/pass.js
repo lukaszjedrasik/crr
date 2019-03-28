@@ -22,7 +22,7 @@ export default {
 
       try {
         const { data } = await authAxios.post(
-          'api/ticket/buy',
+          '/ticket/buy',
           {},
           {
             headers: {

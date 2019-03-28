@@ -31,6 +31,7 @@
         ></v-text-field>
       </v-form>
     </v-card-text>
+    <p class="text-xs-center red--text text--accent-2 subheading">{{ feedback }}</p>
     <v-card-actions>
       <v-spacer></v-spacer>
       <v-btn @click="submit" color="#C62828">Zarejestruj</v-btn>
@@ -52,7 +53,8 @@ export default {
     return {
       username: "",
       email: "",
-      password: ""
+      password: "",
+      feedback: ""
     };
   },
   validations: {
@@ -84,6 +86,8 @@ export default {
         this.username = "";
         this.email = "";
         this.password = "";
+      } else {
+        this.feedback = "Coś poszło nie tak";
       }
     }
   },

@@ -36,7 +36,7 @@
               </v-list-tile-action>
 
               <v-list-tile-content>
-                <v-list-tile-title>example@example.com</v-list-tile-title>
+                <v-list-tile-title>{{ this.$store.state.auth.email }}</v-list-tile-title>
               </v-list-tile-content>
             </v-list-tile>
           </v-list>

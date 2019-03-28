@@ -3,8 +3,6 @@ import Router from 'vue-router';
 import store from '@/store';
 import StartView from '@/views/StartView.vue';
 
-store.dispatch('auth/autologin');
-
 const authGuard = (to, from, next) => {
   const st = store.getters['auth/isAuth'];
   if (st) {
@@ -31,11 +29,6 @@ export default new Router({
       component: () => import('@/components/Dashboard.vue'),
       beforeEnter: authGuard,
       children: [
-        {
-          path: '/schedule',
-          name: 'Schedule',
-          component: () => import('@/components/Schedule.vue'),
-        },
         {
           path: '/profile',
           name: 'Profile',

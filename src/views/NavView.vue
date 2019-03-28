@@ -58,8 +58,6 @@ export default {
     return {
       sideMenu: null,
       sideMenuLinks: [
-        { name: "Aktualności", icon: "fiber_new" },
-        { name: "Rozkład zajęć", icon: "calendar_today" },
         { name: "Czat", icon: "chat" },
         { name: "Karnet", icon: "credit_card" },
         { name: "Profil", icon: "person" }
