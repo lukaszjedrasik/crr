@@ -7,3 +7,4 @@
 - VueX
 - Axios
 - Vuetify
+- Vuelidate
